@@ -1,0 +1,84 @@
+className <$.model> 
+package <$.basePackage>.<$.model[small]>.model;
+
+import java.io.Serializable;
+
+public class <$.model> implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	<autogenerate.pojo.properties>
+
+}
+<class.end>
+className <$.model>DAOConstants
+package <$.basePackage>.<$.model[small]>.support;
+
+import java.io.Serializable;
+
+public final class <$.model>DAOConstants {
+	
+	<autogenerate.util.queries>
+
+}
+<class.end>
+className <$.model>DAO
+package <$.basePackage>.<$.model[small]>.dao;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import <$.basePackage>.<$.model[small]>.model.<$.model>;
+
+public class <$.model>DAO {
+
+	@Autowired
+	@Qualifier("databaseDataSource")
+	private JdbcTemplate jdbcTemplate;
+
+	private RowMapper<<$.model>> mapper = (resultSet, rowNum) -> {
+	    <autogenerate.rowmapper.setters>
+		return new <$.model>();
+	};
+
+	
+	public List<<$.model>> find(long id){
+		//Validate				
+		return this.jdbcTemplate.query(<$.model>DAOConstants.FIND_BY_STATUS,new Object[] {id}, mapper);
+	}
+	
+}
+
+<class.end>
+className <$.model>Controller
+package <$.basePackage>.<$.model>.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import <$.basePackage>.<$.model[small]>.dao.<$.model>DAO;
+import <$.basePackage>.<$.model[small]>.model.<$.model>;
+
+@RestController
+public class <$.model>Controller {
+
+	@Autowired
+	private <$.model>DAO <$.model[camel]>Dao;
+	
+	@RequestMapping("/{id}")
+    public <$.model> find(@PathVariable <param.type> id) {
+    	Objects.requireNonNull(id,"id is null");
+		List<$.model> <$.model[camel]>List = <$.model[camel]>Dao.find(id);
+        return <$.model[camel]>List > 1 ? <$.model[camel]>List.get(0) : null; 
+    }
+	
+}
+<class.end>

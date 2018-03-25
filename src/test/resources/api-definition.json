@@ -1,0 +1,66 @@
+{
+	"name": "Employee",
+	"description": "Employee",
+	"urlContext": "/Employees",
+	"basePackage": "com.freedom.code",
+	"model": "Employee",
+	"queryConfig": 
+	{
+		"schema": "EMPLOYEE",
+		"table": "EMPLOYEE",
+		"key": "EMPLOYEE_ID",
+		"query": "",
+		"database": 
+		{
+			"type": "ORACLE",
+			"connectionString": "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false",
+			"userName": "sa",
+			"password": "",
+			"driverClass": "org.h2.Driver",
+			"dataSource":"oracleDataSource"
+		}
+	},
+
+	"operations": 
+	[
+		{
+			"name": "find",
+			"method": "GET",
+			"queryByColumns": 
+			[
+				"EMPNO","SAL"
+			]
+		},
+
+		{
+			"method": "POST",
+			"name": "create",
+			"timestampColumns": 
+			[
+				"",
+				""
+			]
+		},
+
+		{
+			"method": "PUT",
+			"name": "update",
+			"updateColumns": 
+			[
+				"",
+				""
+			],
+
+			"timestampColumns": 
+			[
+				"",
+				""
+			]
+		},
+
+		{
+			"method": "DELETE",
+			"name": "delete"
+		}
+	]
+}
